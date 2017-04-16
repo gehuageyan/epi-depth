@@ -1,34 +1,9 @@
-name: "EPI-DEPTH"
-layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "disp"
-  transform_param {
-    mean_file: "/home/hzdz505/dl/datasets/full_data-depth/training/lmdb_data/train_mean.binaryproto"
-  }
-  data_param {
-    source: "/home/hzdz505/dl/datasets/full_data-depth/training/lmdb_data/train_lmdb"
-    batch_size: 440
-    backend: LMDB
-  }
-  include { phase: TRAIN }
-}
-
-layer {
-  name: "data"
-  type: "Data"
-  top: "data"
-  top: "disp"
-  transform_param {
-    mean_file: "/home/hzdz505/dl/datasets/full_data-depth/training/lmdb_data/val_mean.binaryproto"
-  }
-  data_param {
-    source: "/home/hzdz505/dl/datasets/full_data-depth/training/lmdb_data/val_lmdb"
-    batch_size: 400
-    backend: LMDB
-  }
-  include { phase: TEST }
+input:"data"
+input_shape{
+  dim:1
+  dim:3
+  dim:9
+  dim:33
 }
 
 layer {
@@ -242,21 +217,6 @@ layer {
   type: "ReLU"
 }
 
-layer {
-  name: "accuracy"
-  type: "Accuracy"
-  bottom: "fc5"
-  bottom: "disp"
-  top: "accuracy"
-}
-layer {
-  name: "loss"
-  type: "SoftmaxWithLoss"
-  bottom: "fc5"
-  bottom: "disp"
-  top: "loss"
-  include { phase: TRAIN }
-}
 
 
 
